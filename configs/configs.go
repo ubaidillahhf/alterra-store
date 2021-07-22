@@ -1,16 +1,52 @@
 package configs
 
 import (
+	"alterra_store/models/users"
+	"fmt"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
 var DB *gorm.DB
 
+type Configuration struct {
+	DB_USERNAME string
+	DB_PASSWORD string
+	DB_HOST     string
+	DB_PORT     string
+	DB_NAME     string
+}
+
+func GetConfig() Configuration {
+	var configDB = Configuration{
+		DB_USERNAME: "root",
+		DB_PASSWORD: "root",
+		DB_PORT:     "3306",
+		DB_HOST:     "127.0.0.1",
+		DB_NAME:     "acp10",
+	}
+	return configDB
+}
+
 func InitDB() {
-	dsn := "root:root@tcp(127.0.0.1:3306)/acp10?charset=utf8mb4"
+	configDB := GetConfig()
+
+	dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8mb4&parseTime=True&loc=Local",
+		configDB.DB_USERNAME,
+		configDB.DB_PASSWORD,
+		configDB.DB_HOST,
+		configDB.DB_PORT,
+		configDB.DB_NAME)
 
 	var error error
+	DB, error = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	if error != nil {
+		panic("Database failed connection : " + error.Error())
+	}
+	Migration()
+}
 
-	DB, error := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+func Migration() {
+	DB.AutoMigrate(&users.Users{})
 }

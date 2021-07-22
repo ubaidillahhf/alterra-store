@@ -1,5 +1,7 @@
 package controllers
 
-func BaseResponseSuccess(code int, message string, data interface{}) interface{} {
-	return 1
+import "alterra_store/models/base"
+
+func BaseResponse(code int, message string, data interface{}) interface{} {
+	return base.BaseResponseData{code, message, data}
 }
