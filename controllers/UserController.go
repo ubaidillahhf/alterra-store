@@ -4,19 +4,22 @@ import (
 	"alterra_store/lib/database"
 	"alterra_store/middlewares"
 	"alterra_store/models/users"
+	"alterra_store/validations"
 	"net/http"
 	"strconv"
 
 	"github.com/labstack/echo/v4"
-	"gopkg.in/go-playground/validator.v9"
 )
 
 func RegisterControllers(c echo.Context) error {
-	v := validator.New()
+
 	var usersCreate users.UserCreate
 	c.Bind(&usersCreate)
-	if errValidation := v.Struct(usersCreate); errValidation != nil {
-		return errValidation
+
+	// Validasi Field
+	errorValidate := validations.Validate(usersCreate)
+	if errorValidate != nil {
+		return errorValidate
 	}
 
 	userDB, err := database.RegisterUser(usersCreate)
