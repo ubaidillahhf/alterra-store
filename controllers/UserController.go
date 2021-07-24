@@ -1,8 +1,6 @@
 package controllers
 
 import (
-	"alterra_store/configs"
-	"alterra_store/helpers"
 	"alterra_store/lib/database"
 	"alterra_store/middlewares"
 	"alterra_store/models/users"
@@ -17,20 +15,13 @@ func RegisterControllers(c echo.Context) error {
 	var usersCreate users.UsersCreate
 	c.Bind(&usersCreate)
 
-	hash, _ := helpers.HashPassword(usersCreate.Password)
+	userDB, err := database.RegisterUser(usersCreate)
 
-	var usersDB users.User
-	usersDB.Name = usersCreate.Name
-	usersDB.Address = usersCreate.Address
-	usersDB.Email = usersCreate.Email
-	usersDB.Password = hash
-
-	err := configs.DB.Create(&usersDB).Error
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, usersDB)
+	return c.JSON(http.StatusOK, userDB)
 }
 
 func LoginController(c echo.Context) error {
@@ -113,4 +104,23 @@ func GetUserControllers(c echo.Context) error {
 		"Success Get Data News",
 		userData,
 	))
+}
+
+func EditUserControllers(c echo.Context) error {
+
+	userId := middlewares.GetUserIdFromJWT(c)
+	var userEditData users.UsersEdit
+	c.Bind(&userEditData)
+
+	confirmedUser, _ := database.CheckHashPassword(userEditData.ConfirmPassword, userId)
+	if !confirmedUser {
+		return c.JSON(http.StatusUnauthorized, "Password Konfirmasi Salah")
+	}
+
+	userEdit, err := database.EditUser(userEditData, userId)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, userEdit)
 }

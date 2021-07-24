@@ -20,6 +20,7 @@ func New() *echo.Echo {
 	e.POST("/api/v1/login", controllers.LoginController)
 	eAuth.GET("/api/v1/users", controllers.GetUserControllers)
 	eAuth.GET("/api/v1/users/:userId", controllers.DetailUserControllers)
+	eAuth.PUT("/api/v1/users", controllers.EditUserControllers)
 
 	return e
 }
