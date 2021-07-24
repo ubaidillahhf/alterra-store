@@ -6,7 +6,7 @@ import (
 	"alterra_store/models/users"
 )
 
-func RegisterUser(usersCreate users.UsersCreate) (users.User, error) {
+func RegisterUser(usersCreate users.UserCreate) (users.User, error) {
 	hash, _ := helpers.HashPassword(usersCreate.Password)
 	var userDB users.User
 
@@ -64,7 +64,7 @@ func CheckHashPassword(confirmPassword string, idUser int) (verified bool, err e
 	return true, err
 }
 
-func EditUser(userEdit users.UsersEdit, idUser int) (users.User, error) {
+func EditUser(userEdit users.UserEdit, idUser int) (users.User, error) {
 	hash, _ := helpers.HashPassword(userEdit.NewPassword)
 	var userDB users.User
 	err := configs.DB.First(&userDB, idUser).Error

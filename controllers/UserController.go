@@ -12,7 +12,7 @@ import (
 
 func RegisterControllers(c echo.Context) error {
 
-	var usersCreate users.UsersCreate
+	var usersCreate users.UserCreate
 	c.Bind(&usersCreate)
 
 	userDB, err := database.RegisterUser(usersCreate)
@@ -109,7 +109,7 @@ func GetUserControllers(c echo.Context) error {
 func EditUserControllers(c echo.Context) error {
 
 	userId := middlewares.GetUserIdFromJWT(c)
-	var userEditData users.UsersEdit
+	var userEditData users.UserEdit
 	c.Bind(&userEditData)
 
 	confirmedUser, _ := database.CheckHashPassword(userEditData.ConfirmPassword, userId)
