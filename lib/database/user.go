@@ -21,3 +21,13 @@ func LoginUser(userLogin users.UserLogin) (users.User, error) {
 	}
 	return userDB, nil
 }
+
+func GetUserDetail(userId int) (users.User, error) {
+	var userDB users.User
+	err := configs.DB.First(&userDB, userId).Error
+
+	if err != nil {
+		return userDB, err
+	}
+	return userDB, nil
+}

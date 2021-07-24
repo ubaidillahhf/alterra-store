@@ -7,11 +7,12 @@ import (
 	"alterra_store/middlewares"
 	"alterra_store/models/users"
 	"net/http"
+	"strconv"
 
 	"github.com/labstack/echo/v4"
 )
 
-func CreateUserControllers(c echo.Context) error {
+func RegisterControllers(c echo.Context) error {
 
 	var usersCreate users.UsersCreate
 	c.Bind(&usersCreate)
@@ -63,4 +64,53 @@ func LoginController(c echo.Context) error {
 		userResponse,
 	))
 
+}
+
+func DetailUserControllers(c echo.Context) error {
+	userId := middlewares.GetUserIdFromJWT(c)
+
+	userDB, e := database.GetUserDetail(userId)
+	paramsUserId := c.Param("userId")
+	convertToInt, _ := strconv.Atoi(paramsUserId)
+
+	if convertToInt != userDB.Id {
+		return c.JSON(http.StatusBadRequest, BaseResponse(
+			http.StatusBadRequest,
+			"Bad Request Url Params",
+			nil,
+		))
+	}
+	if e != nil {
+		return c.JSON(http.StatusInternalServerError, BaseResponse(
+			http.StatusInternalServerError,
+			"Failed Get Data",
+			nil,
+		))
+	}
+	return c.JSON(http.StatusOK, BaseResponse(
+		http.StatusOK,
+		"Success Get Data UserId",
+		userDB,
+	))
+}
+
+func GetUserControllers(c echo.Context) error {
+
+	var userData []users.User
+	var err error
+	userData, err = database.GetDataUserAll()
+
+	if err != nil {
+		return c.JSON(http.StatusOK, BaseResponse(
+			http.StatusInternalServerError,
+			"Failed Get Data",
+			userData,
+		))
+	}
+
+	return c.JSON(http.StatusOK, BaseResponse(
+		http.StatusOK,
+		"Success Get Data News",
+		userData,
+	))
 }
