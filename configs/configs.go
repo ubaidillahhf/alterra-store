@@ -48,5 +48,5 @@ func InitDB() {
 }
 
 func Migration() {
-	DB.AutoMigrate(&users.Users{})
+	DB.AutoMigrate(&users.User{})
 }

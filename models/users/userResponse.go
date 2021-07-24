@@ -6,12 +6,11 @@ import (
 	"gorm.io/gorm"
 )
 
-type User struct {
+type UserResponse struct {
 	Id        int            `json:"id"`
 	Name      string         `json:"name"`
-	Address   string         `json:"address"`
 	Email     string         `json:"email"`
-	Password  string         `json:"password"`
+	Token     string         `json:"token"`
 	CreatedAt time.Time      `json:"createdAt"`
 	UpdatedAt time.Time      `json:"updatedAt"`
 	DeletedAt gorm.DeletedAt `gorm:"index"`
