@@ -4,6 +4,7 @@ import (
 	"alterra_store/constants"
 	"alterra_store/controllers"
 	"alterra_store/middlewares"
+	"alterra_store/validations"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -12,6 +13,8 @@ import (
 func New() *echo.Echo {
 	e := echo.New()
 	middlewares.LogMiddlewares(e)
+	validations.CustomValidation(e)
+
 	eAuth := e.Group("")
 	eAuth.Use(middleware.JWT([]byte(constants.JWT_SECRET)))
 

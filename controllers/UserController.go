@@ -8,12 +8,16 @@ import (
 	"strconv"
 
 	"github.com/labstack/echo/v4"
+	"gopkg.in/go-playground/validator.v9"
 )
 
 func RegisterControllers(c echo.Context) error {
-
+	v := validator.New()
 	var usersCreate users.UserCreate
 	c.Bind(&usersCreate)
+	if errValidation := v.Struct(usersCreate); errValidation != nil {
+		return errValidation
+	}
 
 	userDB, err := database.RegisterUser(usersCreate)
 
