@@ -15,7 +15,7 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 [![Contributors](https://img.shields.io/badge/contributors-2-green)](https://github.com/ubaidillahhf/alterra-store/graphs/contributors)
-[![Issues][issues-shield]](https://github.com/ubaidillahhf/alterra-store/issues)
+[![Issues][issues-shield]](https://img.shields.io/github/issues/ubaidillahhf/alterra-store)
 [![MIT License][license-shield]](https://github.com/ubaidillahhf/alterra-store/blob/master/license.txt)
 [![LinkedIn][linkedin-shield]](https://linkedin.com/in/ubaidillahhf)
 [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/hafidhirsyad/)
