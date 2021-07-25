@@ -34,5 +34,8 @@ func New() *echo.Echo {
 	eAuth.PUT("/api/v1/product-category/:categoryId", controllers.EditCategoryControllers)
 	eAuth.DELETE("/api/v1/product-category/:categoryId", controllers.DeleteCategoryControllers)
 
+	/** FEATURE PRODUCT CATEGORY */
+	eAuth.POST("/api/v1/product", controllers.CreateProductControllers)
+
 	return e
 }
