@@ -1,6 +1,7 @@
 package configs
 
 import (
+	"alterra_store/models/productCategories"
 	"alterra_store/models/users"
 	"fmt"
 
@@ -49,4 +50,5 @@ func InitDB() {
 
 func Migration() {
 	DB.AutoMigrate(&users.User{})
+	DB.AutoMigrate(&productCategories.ProductCategory{})
 }

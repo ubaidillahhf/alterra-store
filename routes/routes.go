@@ -27,5 +27,12 @@ func New() *echo.Echo {
 	eAuth.PUT("/api/v1/users", controllers.EditUserControllers)
 	eAuth.DELETE("/api/v1/users", controllers.DeleteUserControllers)
 
+	/** FEATURE PRODUCT CATEGORY */
+	eAuth.POST("/api/v1/product-category", controllers.CreateCategoryControllers)
+	eAuth.GET("/api/v1/product-category", controllers.GetCategoryControllers)
+	eAuth.GET("/api/v1/product-category/:categoryId", controllers.DetailCategoryControllers)
+	eAuth.PUT("/api/v1/product-category/:categoryId", controllers.EditCategoryControllers)
+	eAuth.DELETE("/api/v1/product-category/:categoryId", controllers.DeleteCategoryControllers)
+
 	return e
 }
