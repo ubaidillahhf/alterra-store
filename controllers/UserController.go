@@ -108,7 +108,7 @@ func GetUserControllers(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, BaseResponse(
 		http.StatusOK,
-		"Success Get Data News",
+		"Success Get Data Users",
 		userData,
 	))
 }
@@ -118,6 +118,12 @@ func EditUserControllers(c echo.Context) error {
 	userId := middlewares.GetUserIdFromJWT(c)
 	var userEditData users.UserEdit
 	c.Bind(&userEditData)
+
+	// Validasi Field
+	errorValidate := validations.Validate(userEditData)
+	if errorValidate != nil {
+		return errorValidate
+	}
 
 	confirmedUser, _ := database.CheckHashPassword(userEditData.ConfirmPassword, userId)
 	if !confirmedUser {
@@ -130,4 +136,23 @@ func EditUserControllers(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, userEdit)
+}
+
+func DeleteUserControllers(c echo.Context) error {
+	userId := middlewares.GetUserIdFromJWT(c)
+
+	_, e := database.DeleteUser(userId)
+
+	if e != nil {
+		return c.JSON(http.StatusInternalServerError, BaseResponse(
+			http.StatusInternalServerError,
+			"Failed Get Data",
+			nil,
+		))
+	}
+	return c.JSON(http.StatusOK, BaseResponse(
+		http.StatusOK,
+		"Success Delete User",
+		nil,
+	))
 }

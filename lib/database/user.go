@@ -52,10 +52,10 @@ func GetUserDetail(userId int) (users.User, error) {
 	return userDB, nil
 }
 
-func CheckHashPassword(confirmPassword string, idUser int) (verified bool, err error) {
+func CheckHashPassword(confirmPassword string, userId int) (verified bool, err error) {
 	var userDB users.User
 
-	err = configs.DB.Where("id = ?", idUser).First(&userDB).Error
+	err = configs.DB.Where("id = ?", userId).First(&userDB).Error
 	confirmedUser, _ := helpers.CheckPasswordHash(confirmPassword, userDB.Password)
 
 	if !confirmedUser {
@@ -64,10 +64,10 @@ func CheckHashPassword(confirmPassword string, idUser int) (verified bool, err e
 	return true, err
 }
 
-func EditUser(userEdit users.UserEdit, idUser int) (users.User, error) {
+func EditUser(userEdit users.UserEdit, userId int) (users.User, error) {
 	hash, _ := helpers.HashPassword(userEdit.NewPassword)
 	var userDB users.User
-	err := configs.DB.First(&userDB, idUser).Error
+	err := configs.DB.First(&userDB, userId).Error
 
 	userDB.Name = userEdit.Name
 	userDB.Address = userEdit.Address
@@ -75,6 +75,16 @@ func EditUser(userEdit users.UserEdit, idUser int) (users.User, error) {
 	userDB.Password = hash
 
 	configs.DB.Save(&userDB)
+
+	if err != nil {
+		return userDB, err
+	}
+	return userDB, nil
+}
+
+func DeleteUser(userId int) (users.User, error) {
+	var userDB users.User
+	err := configs.DB.Where("id = ?", userId).Delete(&userDB).Error
 
 	if err != nil {
 		return userDB, err

@@ -33,7 +33,11 @@ func CustomValidation(e *echo.Echo) {
 				case "lte":
 					report.Message = fmt.Sprintf("%s nilai harus lebih kecil daripada %s",
 						err.Field(), err.Param())
+				default:
+					report.Message = fmt.Sprint("Undefined Error",
+						err.Field(), err.Param())
 				}
+
 			}
 		}
 

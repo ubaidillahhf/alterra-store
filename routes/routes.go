@@ -12,6 +12,7 @@ import (
 
 func New() *echo.Echo {
 	e := echo.New()
+	e.Pre(middleware.RemoveTrailingSlash())
 	middlewares.LogMiddlewares(e)
 	validations.CustomValidation(e)
 
@@ -24,6 +25,7 @@ func New() *echo.Echo {
 	eAuth.GET("/api/v1/users", controllers.GetUserControllers)
 	eAuth.GET("/api/v1/users/:userId", controllers.DetailUserControllers)
 	eAuth.PUT("/api/v1/users", controllers.EditUserControllers)
+	eAuth.DELETE("/api/v1/users", controllers.DeleteUserControllers)
 
 	return e
 }
