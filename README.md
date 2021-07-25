@@ -26,7 +26,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/ubaidillahhf/alterra-store">
-    <img src="https://github.com/ubaidillahhf/alterra-store/blob/master/logo.png" alt="Logo" height="80">
+    <img src="https://github.com/ubaidillahhf/alterra-store/blob/feature/users/logo.png" alt="Logo" height="80">
   </a>
 
   <h3 align="center">ALTERRA STORE</h3>
