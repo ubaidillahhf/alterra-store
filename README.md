@@ -175,7 +175,7 @@ Project Link: [https://github.com/ubaidillahhf/alterra-store](Here)
 [forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
 [stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=flat-square
 [stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=flat-square
+[issues-shield]: https://img.shields.io/github/issues/ubaidillahhf/alterra-store
 [issues-url]: https://github.com/othneildrew/Best-README-Template/issues
 [license-shield]: https://img.shields.io/badge/License-MIT-blue
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
