@@ -64,6 +64,13 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
+### Standard Naming Convention
+* FOLDER = camelCase
+* FILE = snake_case
+* FUNCTION = PascalCase
+
+### Feature
+
 Projek Membuat REST API Golang dengan Framework Echo
 
 Fitur:
