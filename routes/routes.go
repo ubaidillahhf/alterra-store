@@ -47,7 +47,7 @@ func New() *echo.Echo {
 
 	/* FEATURE TRANSACTION */
 	eAuth.POST("/api/v1/transaction", controllers.CreateProductControllers)
-	eAuth.DELETE("/api/v1/transaction/:transactionId", controllers.DeleteProductControllers)
+	eAuth.GET("/api/v1/transaction/:transactionId", controllers.DeleteProductControllers)
 
 	return e
 }
