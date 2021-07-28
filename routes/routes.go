@@ -37,9 +37,9 @@ func New() *echo.Echo {
 	/** FEATURE PRODUCT */
 	eAuth.POST("/api/v1/product", controllers.CreateProductControllers)
 	eAuth.GET("/api/v1/product", controllers.GetProductControllers)
-	eAuth.GET("/api/v1/product/:categoryId", controllers.DetailProductControllers)
-	eAuth.PUT("/api/v1/product/:categoryId", controllers.EditProductControllers)
-	eAuth.DELETE("/api/v1/product/:categoryId", controllers.DeleteProductControllers)
+	eAuth.GET("/api/v1/product/:productId", controllers.DetailProductControllers)
+	eAuth.PUT("/api/v1/product/:productId", controllers.EditProductControllers)
+	eAuth.DELETE("/api/v1/product/:productId", controllers.DeleteProductControllers)
 
 	/* FEATURE CART */
 	eAuth.POST("/api/v1/cart", controllers.CreateProductControllers)
