@@ -17,10 +17,10 @@ func RegisterControllers(c echo.Context) error {
 	c.Bind(&usersCreate)
 
 	// Validasi Field
-	// errorValidate := validations.Validate(usersCreate)
-	// if errorValidate != nil {
-	// 	return errorValidate
-	// }
+	errorValidate := validations.Validate(usersCreate)
+	if errorValidate != nil {
+		return errorValidate
+	}
 
 	userDB, err := database.RegisterUser(usersCreate)
 
@@ -35,7 +35,7 @@ func RegisterControllers(c echo.Context) error {
 	))
 }
 
-func LoginController(c echo.Context) error {
+func LoginControllers(c echo.Context) error {
 
 	userLogin := users.UserLogin{}
 	c.Bind(&userLogin)
@@ -69,7 +69,8 @@ func LoginController(c echo.Context) error {
 }
 
 func DetailUserControllers(c echo.Context) error {
-	userId := middlewares.GetUserIdFromJWT(c)
+	// userId := middlewares.GetUserIdFromJWT(c)
+	userId := 1
 
 	userDB, e := database.GetUserDetail(userId)
 	paramsUserId := c.Param("userId")

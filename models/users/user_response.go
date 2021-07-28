@@ -19,5 +19,5 @@ type UserResponse struct {
 
 type UserResponseTest struct {
 	base.BaseResponse
-	Data []User `json:"data"`
+	Data UserResponse `json:"data"`
 }

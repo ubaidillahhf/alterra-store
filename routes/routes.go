@@ -21,7 +21,7 @@ func New() *echo.Echo {
 
 	/** FEATURE USERS */
 	e.POST("/api/v1/register", controllers.RegisterControllers)
-	e.POST("/api/v1/login", controllers.LoginController)
+	e.POST("/api/v1/login", controllers.LoginControllers)
 	eAuth.GET("/api/v1/users", controllers.GetUserControllers)
 	eAuth.GET("/api/v1/users/:userId", controllers.DetailUserControllers)
 	eAuth.PUT("/api/v1/users", controllers.EditUserControllers)
