@@ -5,10 +5,12 @@ import (
 	"alterra_store/models/products"
 	"alterra_store/validations"
 	"net/http"
+	"strconv"
 
 	"github.com/labstack/echo/v4"
 )
 
+/* PRODUCT */
 func CreateProductControllers(c echo.Context) error {
 
 	var productCreate products.ProductStruct
@@ -27,4 +29,86 @@ func CreateProductControllers(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, createProductDB)
+}
+
+func DetailProductControllers(c echo.Context) error {
+	paramsProductId := c.Param("categoryId")
+	productId, _ := strconv.Atoi(paramsProductId)
+
+	categoryDB, e := database.GetCategoryDetail(productId)
+
+	if e != nil {
+		return c.JSON(http.StatusInternalServerError, BaseResponse(
+			http.StatusInternalServerError,
+			"Failed Get Data",
+			nil,
+		))
+	}
+	return c.JSON(http.StatusOK, BaseResponse(
+		http.StatusOK,
+		"Success Get Data by categoryId",
+		categoryDB,
+	))
+}
+
+func GetProductControllers(c echo.Context) error {
+
+	var productData []products.Product
+	var err error
+	productData, err = database.GetProductAll()
+
+	if err != nil {
+		return c.JSON(http.StatusOK, BaseResponse(
+			http.StatusInternalServerError,
+			"Failed Get Data",
+			productData,
+		))
+	}
+
+	return c.JSON(http.StatusOK, BaseResponse(
+		http.StatusOK,
+		"Success Get Data Categories",
+		productData,
+	))
+}
+
+func EditProductControllers(c echo.Context) error {
+
+	paramsCategoryId := c.Param("categoryId")
+	categoryId, _ := strconv.Atoi(paramsCategoryId)
+	var productEditDate products.ProductStruct
+	c.Bind(&productEditDate)
+
+	// Validasi Field
+	errorValidate := validations.Validate(productEditDate)
+	if errorValidate != nil {
+		return errorValidate
+	}
+
+	userEdit, err := database.EditProduct(productEditDate, categoryId)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, userEdit)
+}
+
+func DeleteProductControllers(c echo.Context) error {
+
+	paramsProductId := c.Param("categoryId")
+	categoryId, _ := strconv.Atoi(paramsProductId)
+	_, e := database.DeleteCategory(categoryId)
+
+	if e != nil {
+		return c.JSON(http.StatusInternalServerError, BaseResponse(
+			http.StatusInternalServerError,
+			"Failed Get Data",
+			nil,
+		))
+	}
+	return c.JSON(http.StatusOK, BaseResponse(
+		http.StatusOK,
+		"Success Delete Category",
+		nil,
+	))
 }
