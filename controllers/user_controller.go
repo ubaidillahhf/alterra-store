@@ -17,10 +17,10 @@ func RegisterControllers(c echo.Context) error {
 	c.Bind(&usersCreate)
 
 	// Validasi Field
-	errorValidate := validations.Validate(usersCreate)
-	if errorValidate != nil {
-		return errorValidate
-	}
+	// errorValidate := validations.Validate(usersCreate)
+	// if errorValidate != nil {
+	// 	return errorValidate
+	// }
 
 	userDB, err := database.RegisterUser(usersCreate)
 
@@ -28,7 +28,11 @@ func RegisterControllers(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, userDB)
+	return c.JSON(http.StatusCreated, BaseResponse(
+		http.StatusCreated,
+		"Success Register User",
+		userDB,
+	))
 }
 
 func LoginController(c echo.Context) error {
@@ -135,7 +139,11 @@ func EditUserControllers(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, userEdit)
+	return c.JSON(http.StatusOK, BaseResponse(
+		http.StatusOK,
+		"Success Edit Data User",
+		userEdit,
+	))
 }
 
 func DeleteUserControllers(c echo.Context) error {

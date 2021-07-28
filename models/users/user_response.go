@@ -1,6 +1,7 @@
 package users
 
 import (
+	"alterra_store/models/base"
 	"time"
 
 	"gorm.io/gorm"
@@ -14,4 +15,9 @@ type UserResponse struct {
 	CreatedAt time.Time      `json:"createdAt"`
 	UpdatedAt time.Time      `json:"updatedAt"`
 	DeletedAt gorm.DeletedAt `gorm:"index"`
+}
+
+type UserResponseTest struct {
+	base.BaseResponse
+	Data []User `json:"data"`
 }

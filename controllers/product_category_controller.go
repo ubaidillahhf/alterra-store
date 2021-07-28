@@ -28,7 +28,11 @@ func CreateCategoryControllers(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, createCategoryDB)
+	return c.JSON(http.StatusCreated, BaseResponse(
+		http.StatusCreated,
+		"Success Create Category",
+		createCategoryDB,
+	))
 }
 
 func DetailCategoryControllers(c echo.Context) error {
@@ -85,12 +89,16 @@ func EditCategoryControllers(c echo.Context) error {
 		return errorValidate
 	}
 
-	userEdit, err := database.EditCategory(categoryEditData, categoryId)
+	categoryEdit, err := database.EditCategory(categoryEditData, categoryId)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, userEdit)
+	return c.JSON(http.StatusOK, BaseResponse(
+		http.StatusOK,
+		"Success Edit Category",
+		categoryEdit,
+	))
 }
 
 func DeleteCategoryControllers(c echo.Context) error {

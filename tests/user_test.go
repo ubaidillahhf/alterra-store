@@ -44,6 +44,8 @@ func TestRegister(t *testing.T) {
 	u.Path = resource
 	urlStr := u.String() // "localhost:8000/api/v1/users"
 
+	// requestByte, _ := json.Marshal(data.Encode())
+
 	req := httptest.NewRequest(http.MethodPost, urlStr, strings.NewReader(data.Encode()))
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)

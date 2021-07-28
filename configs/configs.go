@@ -54,3 +54,40 @@ func Migration() {
 	DB.AutoMigrate(&productCategories.ProductCategory{})
 	DB.AutoMigrate(&products.Product{})
 }
+
+/** TEST */
+
+func GetConfigTest() Configuration {
+	var configDB = Configuration{
+		DB_USERNAME: "root",
+		DB_PASSWORD: "root",
+		DB_PORT:     "3306",
+		DB_HOST:     "127.0.0.1",
+		DB_NAME:     "acp10_test",
+	}
+	return configDB
+}
+
+func InitDBTest() {
+	configDB := GetConfigTest()
+
+	dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8mb4&parseTime=True&loc=Local",
+		configDB.DB_USERNAME,
+		configDB.DB_PASSWORD,
+		configDB.DB_HOST,
+		configDB.DB_PORT,
+		configDB.DB_NAME)
+
+	var error error
+	DB, error = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	if error != nil {
+		panic("Database failed connection : " + error.Error())
+	}
+	MigrationTest()
+}
+
+func MigrationTest() {
+
+	DB.Migrator().DropTable(&users.User{})
+	DB.AutoMigrate(&users.User{})
+}

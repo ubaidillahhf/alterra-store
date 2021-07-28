@@ -1,12 +1,17 @@
 package validations
 
 import (
+	"alterra_store/models/base"
 	"fmt"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
 	"gopkg.in/go-playground/validator.v9"
 )
+
+func BaseResponse(code int, message string, data interface{}) interface{} {
+	return base.BaseResponseData{code, message, data}
+}
 
 func CustomValidation(e *echo.Echo) {
 	e.HTTPErrorHandler = func(err error, c echo.Context) {
@@ -42,6 +47,10 @@ func CustomValidation(e *echo.Echo) {
 		}
 
 		c.Logger().Error(report)
-		c.JSON(report.Code, report)
+		c.JSON(report.Code, BaseResponse(
+			report.Code,
+			"Error Validation Field",
+			report,
+		))
 	}
 }
