@@ -29,9 +29,9 @@ func GetProductAll() (dataResult []products.Product, err error) {
 	return
 }
 
-func GetProductDetail(categoryId int) (products.Product, error) {
+func GetProductDetail(productId int) (products.Product, error) {
 	var productDB products.Product
-	err := configs.DB.First(&productDB, categoryId).Error
+	err := configs.DB.First(&productDB, productId).Error
 
 	if err != nil {
 		return productDB, err
@@ -44,6 +44,9 @@ func EditProduct(productEdit products.ProductStruct, categoryId int) (products.P
 	err := configs.DB.First(&productDB, categoryId).Error
 
 	productDB.Name = productEdit.Name
+	productDB.CategoryId = productEdit.CategoryId
+	productDB.Sku = productEdit.Sku
+	productDB.Price = productEdit.Price
 	productDB.Description = productEdit.Description
 
 	configs.DB.Save(productDB)
@@ -55,9 +58,9 @@ func EditProduct(productEdit products.ProductStruct, categoryId int) (products.P
 	return productDB, nil
 }
 
-func DeleteProduct(categoryId int) (products.Product, error) {
+func DeleteProduct(productId int) (products.Product, error) {
 	var productDB products.Product
-	err := configs.DB.Where("id = ?", categoryId).Delete(&productDB).Error
+	err := configs.DB.Where("id = ?", productId).Delete(&productDB).Error
 
 	if err != nil {
 		return productDB, err

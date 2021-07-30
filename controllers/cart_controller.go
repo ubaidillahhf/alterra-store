@@ -27,14 +27,14 @@ func CreateCartControllers(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, createCartDB)
+	return c.JSON(http.StatusOK, BaseResponse(http.StatusCreated, "Add Cart Succes", createCartDB))
 }
 
 func DeleteCartControllers(c echo.Context) error {
 
-	paramsCartId := c.Param("productId")
-	productId, _ := strconv.Atoi(paramsCartId)
-	_, e := database.DeleteCategory(productId)
+	paramsCartId := c.Param("cartId")
+	cartId, _ := strconv.Atoi(paramsCartId)
+	_, e := database.DeleteCart(cartId)
 
 	if e != nil {
 		return c.JSON(http.StatusInternalServerError, BaseResponse(
@@ -45,7 +45,7 @@ func DeleteCartControllers(c echo.Context) error {
 	}
 	return c.JSON(http.StatusOK, BaseResponse(
 		http.StatusOK,
-		"Success Delete Category",
+		"Success Delete Cart",
 		nil,
 	))
 }

@@ -36,10 +36,10 @@ func CreateProductControllers(c echo.Context) error {
 }
 
 func DetailProductControllers(c echo.Context) error {
-	paramsProductId := c.Param("categoryId")
+	paramsProductId := c.Param("productId")
 	productId, _ := strconv.Atoi(paramsProductId)
 
-	categoryDB, e := database.GetCategoryDetail(productId)
+	categoryDB, e := database.GetProductDetail(productId)
 
 	if e != nil {
 		return c.JSON(http.StatusInternalServerError, BaseResponse(
@@ -78,8 +78,8 @@ func GetProductControllers(c echo.Context) error {
 
 func EditProductControllers(c echo.Context) error {
 
-	paramsCategoryId := c.Param("categoryId")
-	categoryId, _ := strconv.Atoi(paramsCategoryId)
+	paramsProductId := c.Param("productId")
+	categoryId, _ := strconv.Atoi(paramsProductId)
 	var productEditDate products.ProductStruct
 	c.Bind(&productEditDate)
 
@@ -94,14 +94,14 @@ func EditProductControllers(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, userEdit)
+	return c.JSON(http.StatusOK, BaseResponse(http.StatusOK, "Sukses Edit Produk", userEdit))
 }
 
 func DeleteProductControllers(c echo.Context) error {
 
-	paramsProductId := c.Param("categoryId")
-	categoryId, _ := strconv.Atoi(paramsProductId)
-	_, e := database.DeleteCategory(categoryId)
+	paramsProductId := c.Param("productId")
+	productId, _ := strconv.Atoi(paramsProductId)
+	_, e := database.DeleteProduct(productId)
 
 	if e != nil {
 		return c.JSON(http.StatusInternalServerError, BaseResponse(

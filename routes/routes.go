@@ -42,8 +42,8 @@ func New() *echo.Echo {
 	eAuth.DELETE("/api/v1/product/:productId", controllers.DeleteProductControllers)
 
 	/* FEATURE CART */
-	eAuth.POST("/api/v1/cart", controllers.CreateProductControllers)
-	eAuth.DELETE("/api/v1/cart/:productId", controllers.DeleteProductControllers)
+	eAuth.POST("/api/v1/cart", controllers.CreateCartControllers)
+	eAuth.DELETE("/api/v1/cart/:cartId", controllers.DeleteCartControllers)
 
 	/* FEATURE TRANSACTION */
 	eAuth.POST("/api/v1/transaction", controllers.CreateProductControllers)

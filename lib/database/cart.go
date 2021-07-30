@@ -22,9 +22,9 @@ func CreateCart(createCart carts.CartStruct) (carts.Cart, error) {
 	return cartDb, nil
 }
 
-func DeleteCart(productId int) (carts.Cart, error) {
+func DeleteCart(cartId int) (carts.Cart, error) {
 	var cartDb carts.Cart
-	err := configs.DB.Where("id = ?", productId).Delete(&cartDb).Error
+	err := configs.DB.Where("id = ?", cartId).Delete(&cartDb).Error
 
 	if err != nil {
 		return cartDb, err

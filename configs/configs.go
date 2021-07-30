@@ -1,6 +1,7 @@
 package configs
 
 import (
+	"alterra_store/models/carts"
 	"alterra_store/models/productCategories"
 	"alterra_store/models/products"
 	"alterra_store/models/users"
@@ -53,6 +54,7 @@ func Migration() {
 	DB.AutoMigrate(&users.User{})
 	DB.AutoMigrate(&productCategories.ProductCategory{})
 	DB.AutoMigrate(&products.Product{})
+	DB.AutoMigrate(&carts.Cart{})
 }
 
 /** TEST */
