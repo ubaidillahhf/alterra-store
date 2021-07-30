@@ -4,6 +4,7 @@ import (
 	"alterra_store/models/carts"
 	"alterra_store/models/productCategories"
 	"alterra_store/models/products"
+	"alterra_store/models/transactions"
 	"alterra_store/models/users"
 	"fmt"
 
@@ -55,6 +56,8 @@ func Migration() {
 	DB.AutoMigrate(&productCategories.ProductCategory{})
 	DB.AutoMigrate(&products.Product{})
 	DB.AutoMigrate(&carts.Cart{})
+	DB.AutoMigrate(&transactions.Transaction{})
+	DB.AutoMigrate(&transactions.TransactionDetail{})
 }
 
 /** TEST */

@@ -20,13 +20,13 @@ func CreateTransactionControllers(c echo.Context) error {
 		return errorValidate
 	}
 
-	createCategoryDB, err := database.CreateTransaction(transactionCreate)
+	createTransactionDB, err := database.CreateTransaction(transactionCreate)
 
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, createCategoryDB)
+	return c.JSON(http.StatusOK, BaseResponse(http.StatusCreated, "Transaction Created", createTransactionDB))
 }
 
 func DetailTransactionControllers(c echo.Context) error {
