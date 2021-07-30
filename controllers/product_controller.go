@@ -36,10 +36,10 @@ func CreateProductControllers(c echo.Context) error {
 }
 
 func DetailProductControllers(c echo.Context) error {
-	paramsProductId := c.Param("categoryId")
+	paramsProductId := c.Param("productId")
 	productId, _ := strconv.Atoi(paramsProductId)
 
-	categoryDB, e := database.GetCategoryDetail(productId)
+	categoryDB, e := database.GetProductDetail(productId)
 
 	if e != nil {
 		return c.JSON(http.StatusInternalServerError, BaseResponse(
@@ -50,7 +50,7 @@ func DetailProductControllers(c echo.Context) error {
 	}
 	return c.JSON(http.StatusOK, BaseResponse(
 		http.StatusOK,
-		"Success Get Data by categoryId",
+		"Success Get Data by productId",
 		categoryDB,
 	))
 }
