@@ -42,12 +42,13 @@ func New() *echo.Echo {
 	eAuth.DELETE("/api/v1/product/:productId", controllers.DeleteProductControllers)
 
 	/* FEATURE CART */
-	eAuth.POST("/api/v1/cart", controllers.CreateProductControllers)
-	eAuth.DELETE("/api/v1/cart/:productId", controllers.DeleteProductControllers)
+	eAuth.POST("/api/v1/cart", controllers.CreateCartControllers)
+	eAuth.DELETE("/api/v1/cart/:productId", controllers.DeleteCartControllers)
+	eAuth.GET("/api/v1/cart", controllers.GetCartControllers)
 
 	/* FEATURE TRANSACTION */
-	eAuth.POST("/api/v1/transaction", controllers.CreateProductControllers)
-	eAuth.GET("/api/v1/transaction/:transactionId", controllers.DeleteProductControllers)
+	eAuth.POST("/api/v1/transaction", controllers.CreateTransactionControllers)
+	eAuth.GET("/api/v1/transaction/:transactionId", controllers.DetailTransactionControllers)
 
 	return e
 }
