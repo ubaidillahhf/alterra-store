@@ -44,10 +44,11 @@ func New() *echo.Echo {
 	/* FEATURE CART */
 	eAuth.POST("/api/v1/cart", controllers.CreateCartControllers)
 	eAuth.DELETE("/api/v1/cart/:cartId", controllers.DeleteCartControllers)
+	eAuth.GET("/api/v1/cart", controllers.GetCartControllers)
 
 	/* FEATURE TRANSACTION */
-	eAuth.POST("/api/v1/transaction", controllers.CreateProductControllers)
-	eAuth.GET("/api/v1/transaction/:transactionId", controllers.DeleteProductControllers)
+	eAuth.POST("/api/v1/transaction", controllers.CreateTransactionControllers)
+	eAuth.GET("/api/v1/transaction/:transactionId", controllers.DetailTransactionControllers)
 
 	return e
 }

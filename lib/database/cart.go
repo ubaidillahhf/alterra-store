@@ -31,3 +31,11 @@ func DeleteCart(cartId int) (carts.Cart, error) {
 	}
 	return cartDb, nil
 }
+
+func GetCartAll() (dataResult []carts.Cart, err error) {
+	err = configs.DB.Find(&dataResult).Error
+	if err != nil {
+		return nil, err
+	}
+	return
+}

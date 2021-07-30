@@ -39,9 +39,9 @@ func GetProductDetail(productId int) (products.Product, error) {
 	return productDB, nil
 }
 
-func EditProduct(productEdit products.ProductStruct, categoryId int) (products.Product, error) {
+func EditProduct(productEdit products.ProductStruct, productId int) (products.Product, error) {
 	var productDB products.Product
-	err := configs.DB.First(&productDB, categoryId).Error
+	err := configs.DB.First(&productDB, productId).Error
 
 	productDB.Name = productEdit.Name
 	productDB.CategoryId = productEdit.CategoryId

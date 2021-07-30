@@ -50,7 +50,7 @@ func DetailProductControllers(c echo.Context) error {
 	}
 	return c.JSON(http.StatusOK, BaseResponse(
 		http.StatusOK,
-		"Success Get Data by categoryId",
+		"Success Get Data by productId",
 		categoryDB,
 	))
 }
