@@ -49,3 +49,24 @@ func DeleteCartControllers(c echo.Context) error {
 		nil,
 	))
 }
+
+func GetCartControllers(c echo.Context) error {
+
+	var cartData []carts.Cart
+	var err error
+	cartData, err = database.GetCartAll()
+
+	if err != nil {
+		return c.JSON(http.StatusOK, BaseResponse(
+			http.StatusInternalServerError,
+			"Failed Get Data",
+			cartData,
+		))
+	}
+
+	return c.JSON(http.StatusOK, BaseResponse(
+		http.StatusOK,
+		"Success Get Data Categories",
+		cartData,
+	))
+}
